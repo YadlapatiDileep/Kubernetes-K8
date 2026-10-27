@@ -13,7 +13,7 @@ c. There is no downtime
 d. Scheduling: we can schedule containers creation wherever we want
 e. High security
 
-3) what is pod: pod is a group of containers
+3) what is pod: pod is a group of containers, pods are short living objects, pod acts like a single instance for our application
 
 4)Core Architecture of a Cluster
 

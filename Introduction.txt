@@ -1,0 +1,86 @@
+1) What is Kubernetes?
+
+Ans: Kubernetes is a open source container Arche station tool which helps to automate the deployment, scaling and management of containerized application
+
+kubernates is used for maintainaing the containers
+
+2) Advantages of K8:
+
+a. Autoscaling: if load increases, automatically no of containers create
+                if load decreases, automatically no of containers delete
+b. Rollback to any version
+c. There is no downtime
+d. Scheduling: we can schedule containers creation wherever we want
+e. High security
+
+3) what is pod: pod is a group of containers
+
+4)Core Architecture of a Cluster
+
+A Kubernetes cluster consists of two main parts: the Control Plane (the brain) and Worker Nodes (the muscle).
+
+Plaintext
++-------------------------------------------------------+
+|                    KUBERNETES CLUSTER                 |
+|                                                       |
+|  +-----------------------+                            |
+|  |     Control Plane     | <---- Manages the cluster  |
+|  |  (API Server, etcd,   |                            |
+|  |   Scheduler, etc.)    |                            |
+|  +-----------------------+                            |
+|              |                                        |
+|      +-------+-------+                                |
+|      |               |                                |
+|  +-------+       +-------+                            |
+|  | Node 1|       | Node 2| <---- Runs your containers |
+|  | (Pods)|       | (Pods)|       (via Pods)           |
+|  +-------+       +-------+                            |
++-------------------------------------------------------+
+1. The Control Plane (Master Node)
+
+The control plane makes global decisions about the cluster (e.g., scheduling), detecting and responding to cluster events. Its key components include:
+
+API Server: The front end of the control plane; all administrative commands and internal communications go through here.
+
+etcd: A consistent and highly available key-value store used as Kubernetes' backing store for all cluster data.
+
+Scheduler: Watches for newly created Pods with no assigned node and selects a node for them to run on.
+
+Controller Manager: Runs controller processes that regulate the state of the cluster, 3 types
+
+a. replication controller: ensuring the correct number of pods are running, if not it will create
+b. node controller: if any server crash or delete it will automatically create server
+c. service controller: if any service crash or delete it will automatically create service
+
+2. Worker Nodes
+
+Worker nodes are the machines (physical servers or virtual machines) that actually run your applications. Their components include:
+
+Kubelet: An agent that runs on each node to ensure containers are running inside a Pod.
+
+Kube-proxy: A network proxy that maintains network rules on nodes, enabling network communication to your Pods from inside or outside the cluster.
+
+Container Runtime: The software responsible for running containers (e.g., containerd, CRI-O).
+
+
+5) types of cluster
+
+1. self-managed cluster: everything managed by us
+
+minicube
+kops
+kubeadm
+k3d
+kind
+
+
+b. cloud-managed cluster: Control plane managed by cloud provider, worker nodes managed by us
+
+Aws:EKS (Elastic Kubernetes Service)
+Azure:AKS (Azure Kubernetes Service)
+Gcp: GKE
+
+
+
+
+

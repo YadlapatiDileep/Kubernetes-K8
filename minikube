@@ -42,16 +42,17 @@ vim pod.yml
 how to check version: kubectl api-resources or kubectl api-resource | grep -i pod
 
 ---
-apiVersion:v1
-kind:Pod
+apiVersion: v1
+kind: Pod
 metadata:
-  name:pod-1
+  name: pod-1
 spec:
-containers:
-- name:app-container
-  image:shaikmustafa/dm
-ports:
-- containerport:80
+  containers:
+    - name: app-container
+      image: shaikmustafa/dm
+      ports:
+        - containerPort: 80
+
 
 kubectl create -f pod.yml
 kubectl get pods

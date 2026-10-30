@@ -1,0 +1,78 @@
+KOPS: Kubernetes operation (Multinode cluster)
+
+1) It helps to create cluster on any cloud (aws, azure, GCP)
+2) It is a multimode cluster
+3) we can create multiple manager and worker nodes
+
+
+Step1: Create an EC2 instance name as KOPS, t3 micro, Jenkins-SG, 28GB, Launch-inatnace--->connect with mobaxterm
+
+Step2: Install KOPS on Aamzon Linux
+
+sudo -i
+curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+chmod +x kops
+sudo mv kops /usr/local/bin/kops
+kops version
+
+Step3: Install kubectl on amazon Linux
+
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+   chmod +x kubectl
+  mv kubectl /usr/local/bin
+  kubectl version
+
+Step4: cluster information can be stored in S3(simple service storage)--->search with S3--->we can see no of buckets already available--->we can select one (dileep.k8s.local)
+
+       how to check list of buckets information: aws s3 ls 
+
+suppose if we will get error because ec2 cannot directly interact with S3 ----->so create a role in IAM---(myrole)
+
+select the instance--->actions--->security--->modify IAM role--->select IAM role previously created (myrole)--->update IAM role
+
+aws s3 ls (dileep-kops-s3)
+
+
+Step5: i want to store the data in specific s3 bucket, so execute below command
+
+      export KOPS_STATE_STORE=s3://dileep-kops-s3
+
+Step6: Create a cluster
+
+                    CONTROL-PLANE (master)
+                    c7i-flex.large
+                       30 GB
+                         |
+          +--------------+--------------+
+          |                             |
+      WORKER-1A                      WORKER-1B
+      t3.micro                       t3.micro
+         20 GB                          20GB
+
+kops create cluster --name dileepclusternew.k8s.local --zones ap-south-2a,ap-south-2b --master-count 1 --master-size c7i-flex.large --master-volume-size 30 --node-count 2 --node-size t3.micro --node-volume-size 20 --image=ami-0c24c764e44ed98f2
+
+Note: Take ubuntu ami id from above command
+
+after intall it will display kops update command, paste here on terminal
+
+           kops update cluster --name dileepcluster.k8s.local --yes --admin
+           kubectl get nodes---------------------------------------------------->to check status
+
+Step6:create a pod through manifest file
+
+vim pod.yml 
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-1
+spec:
+  containers:
+    - name: app-container
+      image: shaikmustafa/dm
+      ports:
+        - containerPort: 80
+
+
+

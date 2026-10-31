@@ -110,5 +110,8 @@ how to get particular pod: kubectl get pods -l app=swiggy
 
 how to how to give labels for exsisting pods: kubectl label pod pod-1 app=zomato env=dev client=infosys
 
+how to delete cluster and nodes at a time : kops delete cluster --name clustername --yes
+
+
 
 

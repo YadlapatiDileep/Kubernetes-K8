@@ -39,7 +39,7 @@ b) Declarative (Manifest file)
 
 vim pod.yml
 
-how to check version: kubectl api-resources or kubectl api-resource | grep -i pod
+Note: how to check version: kubectl api-resources or kubectl api-resource | grep -i pod
 
 ---
 apiVersion: v1

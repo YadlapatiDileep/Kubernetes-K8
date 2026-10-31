@@ -74,5 +74,41 @@ spec:
       ports:
         - containerPort: 80
 
+31-10-2026
+
+how to check network details of pod (IP address): kubectl get pods -o wide
+
+How to check pod details: kubectl describe pod pod-1
+
+How to delete pod: kubectl delete pod pod-1
+
+
+                                                                    Labels and selectors:
+
+vim pod.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-1
+  labels:
+    app: swiggy
+    env: dev
+    client: TCS
+spec:
+  containers:
+  - name: container-1
+    image: shaikmustafa/dm
+    ports:
+    - containerPort: 80
+
+kubectl create -f pod.yml
+kubecctl get pods
+kubectl describe pod pod-1 or kubectl get pods --show-labels
+
+how to get particular pod: kubectl get pods -l app=swiggy
+
+how to how to give labels for exsisting pods: kubectl label pod pod-1 app=zomato env=dev client=infosys
+
 
 
